@@ -16,7 +16,6 @@ if($_SESSION["username"]){
         }
         // $base64_string=$_POST['image'];
         $image_name = "C:\\xampp\\htdocs\\uploadFace\\".$usernama;
-        $base = $base64_string;
 
         $query=mysqli_query($koneksi,"select * from admin where username='$usernama' and password='$password'");
         $cek=mysqli_num_rows($query);
@@ -29,13 +28,13 @@ if($_SESSION["username"]){
                     return;
                 }
             }
-            $path = explode('/', $base);
-            $extension = explode(';', $path[1])[0];
+            // $path = explode('/', $base);
+            // $extension = explode(';', $path[1])[0];
 
             $fi = new FilesystemIterator($image_name, FilesystemIterator::SKIP_DOTS);
             $file_count = iterator_count($fi)+1;
             $data = explode(',', $base64_string);
-            $fullName = $image_name."\\X_".$file_count."_". date("YmdHis") .".".$extension;
+            $fullName = $image_name."\\X_".$file_count."_". date("YmdHis") .".png";
             $tanggal = date("YmdHis");
             $ifp = fopen($fullName, "wb");
             fwrite($ifp, base64_decode($data[1]));
